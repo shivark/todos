@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import AddButton from "./add-button";
 import AddInput from "./add-input";
 import Item from "./item";
-import data from "./../../sample-data";
 import Loader from "./loader";
 
 class AdditemForm extends Component {
@@ -16,11 +15,9 @@ class AdditemForm extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        todos: data
-      });
-    }, 1500);
+    fetch("./sample-data.json")
+      .then(res => res.json())
+      .then(data => this.setState({ todos: data.todos }));
   }
 
   handleCheckBoxChange(id) {

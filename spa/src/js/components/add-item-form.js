@@ -1,26 +1,51 @@
-import React from "react";
+import React, { Component } from "react";
 import AddButton from "./add-button";
 import AddInput from "./add-input";
 import Item from "./item";
+import data from "./../../sample-data";
 
-class AdditemForm extends React.Component {
+class AdditemForm extends Component {
   constructor() {
     super();
     this.state = {
-      items: []
+      todos: data
     };
+
+    this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
   }
 
-  //   buttonClicked = () => {
-  //     alert("button clicked");
-  //   };
+  handleCheckBoxChange(id) {
+    this.setState(prevState => {
+      const updatedTodos = prevState.todos.map(item => {
+        if (item.id === id) {
+          item.completed = !item.completed;
+        }
+
+        return item;
+      });
+
+      return {
+        todos: updatedTodos
+      };
+    });
+
+    console.log("check box clicked with id: ", id);
+  }
 
   render() {
+    const todoItems = this.state.todos.map(item => (
+      <Item
+        handleCheckBoxChange={this.handleCheckBoxChange}
+        key={item.id}
+        item={item}
+      />
+    ));
+
     return (
       <div>
         <AddButton onClickFunction={this.buttonClicked} />
         <AddInput />
-        <Item title="First item to do" />
+        {todoItems}
       </div>
     );
   }

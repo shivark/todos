@@ -3,15 +3,24 @@ import AddButton from "./add-button";
 import AddInput from "./add-input";
 import Item from "./item";
 import data from "./../../sample-data";
+import Loader from "./loader";
 
 class AdditemForm extends Component {
   constructor() {
     super();
     this.state = {
-      todos: data
+      todos: null
     };
 
     this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        todos: data
+      });
+    }, 1500);
   }
 
   handleCheckBoxChange(id) {
@@ -20,7 +29,6 @@ class AdditemForm extends Component {
         if (item.id === id) {
           item.completed = !item.completed;
         }
-
         return item;
       });
 
@@ -28,24 +36,24 @@ class AdditemForm extends Component {
         todos: updatedTodos
       };
     });
-
-    console.log("check box clicked with id: ", id);
   }
 
-  render() {
-    const todoItems = this.state.todos.map(item => (
+  getItems() {
+    return this.state.todos.map(item => (
       <Item
         handleCheckBoxChange={this.handleCheckBoxChange}
         key={item.id}
         item={item}
       />
     ));
+  }
 
+  render() {
     return (
       <div>
         <AddButton onClickFunction={this.buttonClicked} />
         <AddInput />
-        {todoItems}
+        {this.state.todos ? this.getItems() : <Loader />}
       </div>
     );
   }

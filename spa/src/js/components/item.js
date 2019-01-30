@@ -1,15 +1,6 @@
 import React from "react";
 
-// const displayHint = () => {
-//   alert("this is a hint");
-// };
-
-const displayHint = () => {
-  console.log("HELLO");
-};
-
 const Item = props => {
-  console.log(props);
   return (
     <div>
       <input
@@ -17,7 +8,7 @@ const Item = props => {
         onChange={() => props.handleCheckBoxChange(props.item.id)}
         checked={props.item.completed}
       />
-      <label onMouseOver={displayHint}>{props.item.title}</label>
+      <label>{props.item.title}</label>
     </div>
   );
 };

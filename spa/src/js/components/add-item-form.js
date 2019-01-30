@@ -15,9 +15,11 @@ class AdditemForm extends Component {
   }
 
   componentDidMount() {
-    fetch("./sample-data.json")
-      .then(res => res.json())
-      .then(data => this.setState({ todos: data.todos }));
+    setTimeout(() => {
+      fetch("./sample-data.json")
+        .then(res => res.json())
+        .then(data => this.setState({ todos: data.todos }));
+    }, 1500);
   }
 
   handleCheckBoxChange(id) {

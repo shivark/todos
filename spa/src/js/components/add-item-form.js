@@ -8,10 +8,12 @@ class AdditemForm extends Component {
   constructor() {
     super();
     this.state = {
+      newItem: "",
       todos: null
     };
 
     this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
+    this.textInputChanged = this.textInputChanged.bind(this);
   }
 
   componentDidMount() {
@@ -47,11 +49,26 @@ class AdditemForm extends Component {
     ));
   }
 
+  buttonClicked() {
+    console.log("Button clicked!");
+  }
+
+  textInputChanged(event) {
+    const { name, value } = event.target;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
   render() {
     return (
       <div>
-        <AddButton onClickFunction={this.buttonClicked} />
-        <AddInput />
+        <AddButton handleOnClick={this.buttonClicked} />
+        <AddInput
+          newItemValue={this.state.newItem}
+          handleOnChange={this.textInputChanged}
+        />
         {this.state.todos ? this.getItems() : <Loader />}
       </div>
     );

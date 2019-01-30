@@ -1,7 +1,15 @@
 import React from "react";
 
-const AddInput = () => {
-  return <input type="text" name="add" placeholder="To buy ..." />;
+const AddInput = props => {
+  return (
+    <input
+      value={props.newItemValue}
+      type="text"
+      name="newItem"
+      placeholder="To buy ..."
+      onChange={props.handleOnChange}
+    />
+  );
 };
 
 export default AddInput;

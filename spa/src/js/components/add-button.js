@@ -1,11 +1,7 @@
 import React from "react";
 
-var handleClick = () => {
-  alert("im clicked");
-};
-
-const AddButton = () => {
-  return <button> Add </button>;
+const AddButton = props => {
+  return <button onClick={props.handleOnClick}> Add </button>;
 };
 
 export default AddButton;

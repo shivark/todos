@@ -1,6 +1,12 @@
 import React from "react";
 
 const Item = props => {
+  const completedStyle = {
+    fontStyle: "italic",
+    color: "#cdcdcd",
+    textDecoration: "line-through"
+  };
+
   return (
     <div>
       <input
@@ -8,7 +14,9 @@ const Item = props => {
         onChange={() => props.handleCheckBoxChange(props.item.id)}
         checked={props.item.completed}
       />
-      <label>{props.item.title}</label>
+      <label style={props.item.completed ? completedStyle : null}>
+        {props.item.title}
+      </label>
     </div>
   );
 };

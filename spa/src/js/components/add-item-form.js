@@ -3,6 +3,7 @@ import AddButton from "./add-button";
 import AddInput from "./add-input";
 import Item from "./item";
 import Loader from "./loader";
+import uniqid from "uniqid";
 
 class AdditemForm extends Component {
   constructor() {
@@ -14,6 +15,7 @@ class AdditemForm extends Component {
 
     this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
     this.textInputChanged = this.textInputChanged.bind(this);
+    this.buttonClicked = this.buttonClicked.bind(this);
   }
 
   componentDidMount() {
@@ -26,12 +28,9 @@ class AdditemForm extends Component {
 
   handleCheckBoxChange(id) {
     this.setState(prevState => {
-      const updatedTodos = prevState.todos.map(item => {
-        if (item.id === id) {
-          item.completed = !item.completed;
-        }
-        return item;
-      });
+      const updatedTodos = prevState.todos.map(
+        item => (item.id === id && (item.completed = !item.completed), item)
+      );
 
       return {
         todos: updatedTodos
@@ -50,12 +49,21 @@ class AdditemForm extends Component {
   }
 
   buttonClicked() {
-    console.log("Button clicked!");
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {
+          id: uniqid(),
+          title: this.state.newItem,
+          completed: false
+        }
+      ]
+    });
+    // end to server
   }
 
   textInputChanged(event) {
     const { name, value } = event.target;
-
     this.setState({
       [name]: value
     });
